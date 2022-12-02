@@ -1,0 +1,251 @@
+openapi: 3.0.0
+info:
+  title: EMS-API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://imms-ktt-task.onrender.com/
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - AUTH
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterUserRequest'
+              - example:
+                  name: naveen
+                  email: naveen@gmail.com
+                  password: secret
+            example:
+              name: naveen
+              email: naveen@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - AUTH
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginUserRequest'
+              - example:
+                  email: naveen@gmail.com
+                  password: secret
+            example:
+              email: naveen@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /employees:
+    post:
+      tags:
+      - EMPLOYEES
+      summary: Create Employee
+      operationId: CreateEmployee
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateEmployeeRequest'
+              - example:
+                  name: Gokul
+                  company: Netflix
+                  position: Developer
+            example:
+              name: Gokul
+              company: Netflix
+              position: Developer
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    get:
+      tags:
+      - EMPLOYEES
+      summary: Get All Employees
+      operationId: GetAllEmployees
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /employees/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Employee ID
+    get:
+      tags:
+      - EMPLOYEES
+      summary: Get Single Employee
+      operationId: GetSingleEmployee
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    patch:
+      tags:
+      - EMPLOYEES
+      summary: Update Employee
+      operationId: UpdateEmployee
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateEmployeeRequest'
+              - example:
+                  name: Naveen M.S
+                  company: KT-Telematic
+                  position: back end
+            example:
+              name: Naveen M.S
+              company: KT-Telematic
+              position: back end
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      tags:
+      - EMPLOYEES
+      summary: Delete Employee
+      operationId: DeleteEmployee
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: naveen
+        email: naveen@gmail.com
+        password: secret
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: naveen@gmail.com
+        password: secret
+    CreateEmployeeRequest:
+      title: CreateEmployeeRequest
+      required:
+      - name
+      - company
+      - position
+      type: object
+      properties:
+        name:
+          type: string
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        name: Gokul
+        company: Netflix
+        position: Developer
+    UpdateEmployeeRequest:
+      title: UpdateEmployeeRequest
+      required:
+      - name
+      - company
+      - position
+      type: object
+      properties:
+        name:
+          type: string
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        name: Naveen M.S
+        company: KT-Telematic
+        position: back end
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: AUTH
+  description: ''
+- name: EMPLOYEES
+  description: ''
